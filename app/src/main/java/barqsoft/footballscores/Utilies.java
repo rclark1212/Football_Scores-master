@@ -14,6 +14,7 @@ public class Utilies
     {
         switch (league_num)
         {
+            //TODO - put strings into resource file (not translatable)
             case SERIE_A : return "Seria A";
             case PREMIER_LEGAUE : return "Premier League";
             case CHAMPIONS_LEAGUE : return "UEFA Champions League";
@@ -26,6 +27,7 @@ public class Utilies
     {
         if(league_num == CHAMPIONS_LEAGUE)
         {
+            //TODO - put strings into resource file
             if (match_day <= 6)
             {
                 return "Group Stages, Matchday : 6";
@@ -61,6 +63,7 @@ public class Utilies
         }
         else
         {
+            //TODO - right to left language fixup...
             return String.valueOf(home_goals) + " - " + String.valueOf(awaygoals);
         }
     }

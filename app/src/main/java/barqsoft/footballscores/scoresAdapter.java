@@ -26,6 +26,7 @@ public class scoresAdapter extends CursorAdapter
     public static final int COL_MATCHTIME = 2;
     public double detail_match_id = 0;
     private String FOOTBALL_SCORES_HASHTAG = "#Football_Scores";
+
     public scoresAdapter(Context context,Cursor cursor,int flags)
     {
         super(context,cursor,flags);
@@ -47,6 +48,7 @@ public class scoresAdapter extends CursorAdapter
         final ViewHolder mHolder = (ViewHolder) view.getTag();
         mHolder.home_name.setText(cursor.getString(COL_HOME));
         mHolder.away_name.setText(cursor.getString(COL_AWAY));
+        //TODO - convert to locale?
         mHolder.date.setText(cursor.getString(COL_MATCHTIME));
         mHolder.score.setText(Utilies.getScores(cursor.getInt(COL_HOME_GOALS),cursor.getInt(COL_AWAY_GOALS)));
         mHolder.match_id = cursor.getDouble(COL_ID);
@@ -78,8 +80,14 @@ public class scoresAdapter extends CursorAdapter
                 public void onClick(View v)
                 {
                     //add Share Action
-                    context.startActivity(createShareForecastIntent(mHolder.home_name.getText()+" "
-                    +mHolder.score.getText()+" "+mHolder.away_name.getText() + " "));
+                    //TODO - fixup for mirror locales - FIXED
+                    if (context.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                        context.startActivity(createShareForecastIntent(mHolder.away_name.getText() + " "
+                                + mHolder.score.getText() + " " + mHolder.home_name.getText() + " "));
+                    } else {
+                        context.startActivity(createShareForecastIntent(mHolder.home_name.getText() + " "
+                                + mHolder.score.getText() + " " + mHolder.away_name.getText() + " "));
+                    }
                 }
             });
         }
