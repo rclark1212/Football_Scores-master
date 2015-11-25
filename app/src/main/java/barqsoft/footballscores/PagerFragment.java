@@ -32,9 +32,9 @@ public class PagerFragment extends Fragment
         mPagerAdapter = new myPageAdapter(getChildFragmentManager());
         for (int i = 0;i < NUM_PAGES;i++)
         {
-            //TODO - fix date format to go by locale
+            //TODO - fix date format to go by locale - FIXED
             Date fragmentdate = new Date(System.currentTimeMillis()+((i-2)*86400000));
-            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
             viewFragments[i] = new MainScreenFragment();
             viewFragments[i].setFragmentDate(mformat.format(fragmentdate));
         }
@@ -88,8 +88,8 @@ public class PagerFragment extends Fragment
                 Time time = new Time();
                 time.setToNow();
                 // Otherwise, the format is just the day of the week (e.g "Wednesday".
-                //TODO - add locale to call below
-                SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
+                //TODO - add locale to call below - FIXED
+                SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", java.util.Locale.getDefault());
                 return dayFormat.format(dateInMillis);
             }
         }

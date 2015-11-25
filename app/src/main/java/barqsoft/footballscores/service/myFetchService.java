@@ -27,6 +27,9 @@ import barqsoft.footballscores.R;
 
 /**
  * Created by yehya khaled on 3/2/2015.
+ *
+ * Note - in the content provider, keep all dates in native language/format
+ * (i.e. localize just on display)
  */
 public class myFetchService extends IntentService
 {
