@@ -11,7 +11,7 @@ public class Utilies
     //league numbers do not match json data in myfetchservice. Make them match
     public static final int SERIE_A = 401;
     public static final int PREMIER_LEGAUE = 398;
-    public static final int CHAMPIONS_LEAGUE = 362;
+    public static final int CHAMPIONS_LEAGUE = 405;
     public static final int PRIMERA_DIVISION = 399;
     public static final int BUNDESLIGA1 = 394;
     public static final int BUNDESLIGA2 = 395;
