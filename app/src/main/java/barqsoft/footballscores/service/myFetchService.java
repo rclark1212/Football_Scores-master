@@ -212,6 +212,7 @@ public class myFetchService extends IntentService
                     mDate = match_data.getString(MATCH_DATE);
                     mTime = mDate.substring(mDate.indexOf("T") + 1, mDate.indexOf("Z"));
                     mDate = mDate.substring(0,mDate.indexOf("T"));
+                    //Note - store standard format in content provider. Translate to locale at UI level
                     SimpleDateFormat match_date = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
                     match_date.setTimeZone(TimeZone.getTimeZone("UTC"));
                     try {

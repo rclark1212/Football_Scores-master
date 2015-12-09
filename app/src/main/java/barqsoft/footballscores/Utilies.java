@@ -8,11 +8,14 @@ import android.view.View;
  */
 public class Utilies
 {
-    public static final int SERIE_A = 357;
-    public static final int PREMIER_LEGAUE = 354;
+    //league numbers do not match json data in myfetchservice. Make them match
+    public static final int SERIE_A = 401;
+    public static final int PREMIER_LEGAUE = 398;
     public static final int CHAMPIONS_LEAGUE = 362;
-    public static final int PRIMERA_DIVISION = 358;
-    public static final int BUNDESLIGA = 351;
+    public static final int PRIMERA_DIVISION = 399;
+    public static final int BUNDESLIGA1 = 394;
+    public static final int BUNDESLIGA2 = 395;
+
     public static String getLeague(int league_num, Context ctx)
     {
         switch (league_num)
@@ -22,7 +25,8 @@ public class Utilies
             case PREMIER_LEGAUE : return ctx.getResources().getString(R.string.premierleague);  //"Premier League"
             case CHAMPIONS_LEAGUE : return ctx.getResources().getString(R.string.champions_league); //"UEFA Champions League"
             case PRIMERA_DIVISION : return ctx.getResources().getString(R.string.primeradivison);   //"Primera Division"
-            case BUNDESLIGA : return ctx.getResources().getString(R.string.bundesliga);         //"Bundesliga"
+            case BUNDESLIGA1 :
+            case BUNDESLIGA2: return ctx.getResources().getString(R.string.bundesliga);         //"Bundesliga"
             default: return ctx.getResources().getString(R.string.unknown_league);              //"Not known League Please report"
         }
     }

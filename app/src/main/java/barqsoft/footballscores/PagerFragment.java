@@ -32,9 +32,9 @@ public class PagerFragment extends Fragment
         mPagerAdapter = new myPageAdapter(getChildFragmentManager());
         for (int i = 0;i < NUM_PAGES;i++)
         {
-            //TODO - fix date format to go by locale - FIXED
+            //The date here is for filtering data out of the content provider. Do NOT change locale here...
             Date fragmentdate = new Date(System.currentTimeMillis()+((i-2)*86400000));
-            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
+            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
             viewFragments[i] = new MainScreenFragment();
             viewFragments[i].setFragmentDate(mformat.format(fragmentdate));
         }
