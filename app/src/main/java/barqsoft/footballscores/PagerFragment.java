@@ -40,9 +40,24 @@ public class PagerFragment extends Fragment
         }
         mPagerHandler.setAdapter(mPagerAdapter);
         mPagerHandler.setCurrentItem(MainActivity.current_fragment);
-        //TODO - if app in the background, it won't update (and page dates will be wrong) - set up an updater on onResume
         return rootView;
     }
+
+    public void updateDates() {
+        // update the fragment dates in case app has been in background and date has changed
+        for (int i = 0;i < NUM_PAGES;i++)
+        {
+            //The date here is for filtering data out of the content provider. Do NOT change locale here...
+            Date fragmentdate = new Date(System.currentTimeMillis()+((i-2)*86400000));
+            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
+            if (viewFragments[i] != null) {
+                viewFragments[i].setFragmentDate(mformat.format(fragmentdate));
+                if (viewFragments[i].mAdapter != null)
+                    viewFragments[i].mAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
     private class myPageAdapter extends FragmentStatePagerAdapter
     {
         @Override

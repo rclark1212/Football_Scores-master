@@ -30,6 +30,12 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+    @Override
+    public void onResume() {
+        //make sure dates are correct in fragments
+        super.onResume();
+        my_main.updateDates();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
