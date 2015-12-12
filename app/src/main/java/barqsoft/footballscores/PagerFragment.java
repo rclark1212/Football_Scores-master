@@ -40,6 +40,7 @@ public class PagerFragment extends Fragment
         }
         mPagerHandler.setAdapter(mPagerAdapter);
         mPagerHandler.setCurrentItem(MainActivity.current_fragment);
+        //TODO - if app in the background, it won't update (and page dates will be wrong) - set up an updater on onResume
         return rootView;
     }
     private class myPageAdapter extends FragmentStatePagerAdapter

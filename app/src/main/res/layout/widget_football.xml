@@ -2,17 +2,28 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/widget"
+    android:background="@color/orange01"
     android:padding="@dimen/widget_margin">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="@drawable/arsenal"
-        android:id="@+id/widget">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/testwidget"
-            android:text="test"/>
-    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="start|center_vertical"
+        android:layout_weight="2"
+        android:id="@+id/widget_team1"
+        android:text="team1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_weight="1"
+        android:id="@+id/widget_score"
+        android:text="score"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="end|center_vertical"
+        android:layout_weight="2"
+        android:id="@+id/widget_team2"
+        android:text="team2"/>
 </FrameLayout>

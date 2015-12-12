@@ -5,22 +5,41 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
+
+import barqsoft.footballscores.service.FootballWidgetIntentService;
+import barqsoft.footballscores.service.myFetchService;
 
 /**
  * Created by rclark on 12/10/2015.
  */
 public class FootballScoresWidgetProvider extends AppWidgetProvider {
+
+
     @Override
     public void onUpdate(Context ctx, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        for (int i = 0; i < appWidgetIds.length; i++) {
-            RemoteViews views = new RemoteViews(ctx.getPackageName(), R.layout.widget_football);
+        super.onUpdate(ctx, appWidgetManager, appWidgetIds);
 
-            Intent intent = new Intent(ctx, MainActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0, intent, 0);
-            views.setOnClickPendingIntent(R.id.widget, pendingIntent);
+        //start the intent service
+        Intent svcintent = new Intent(ctx, FootballWidgetIntentService.class);
+        ctx.startService(svcintent);
+    }
 
-            appWidgetManager.updateAppWidget(appWidgetIds[i], views);
+    @Override
+    public void onReceive(@NonNull Context ctx, @NonNull Intent intent) {
+        super.onReceive(ctx, intent);
+        if (myFetchService.FOOTBALL_DATA_UPDATED.equals(intent.getAction())) {
+            //start the intent service
+            ctx.startService(new Intent(ctx, FootballWidgetIntentService.class));
         }
+    }
+
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
+        //do nothing for now
     }
 }

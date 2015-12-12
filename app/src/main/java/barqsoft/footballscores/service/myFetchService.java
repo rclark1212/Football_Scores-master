@@ -34,6 +34,8 @@ import barqsoft.footballscores.R;
 public class myFetchService extends IntentService
 {
     public static final String LOG_TAG = "myFetchService";
+    public static final String FOOTBALL_DATA_UPDATED = "barqsoft.footballscores.ACTION_DATA_UPDATED";
+
     public myFetchService()
     {
         super("myFetchService");
@@ -124,6 +126,11 @@ public class myFetchService extends IntentService
 
 
                 processJSONdata(JSON_data, getApplicationContext(), true);
+
+                //after we process JSON data, lets send out a broadcast so we can update our widget...
+                Intent dataUpdatedIntent = new Intent(FOOTBALL_DATA_UPDATED);
+                getApplicationContext().sendBroadcast(dataUpdatedIntent);
+
             } else {
                 //Could not Connect
                 Log.d(LOG_TAG, "Could not connect to server.");
@@ -134,6 +141,7 @@ public class myFetchService extends IntentService
             Log.e(LOG_TAG,e.getMessage());
         }
     }
+
     private void processJSONdata (String JSONdata,Context mContext, boolean isReal)
     {
         //JSON data
