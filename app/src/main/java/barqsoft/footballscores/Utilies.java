@@ -20,7 +20,7 @@ public class Utilies
     {
         switch (league_num)
         {
-            //TODO - put strings into resource file (not translatable for proper league names) - FIXED
+            //put strings into resource file (not translatable for proper league names) - FIXED
             case SERIE_A : return ctx.getResources().getString(R.string.seriaa);                //"Seria A"
             case PREMIER_LEGAUE : return ctx.getResources().getString(R.string.premierleague);  //"Premier League"
             case CHAMPIONS_LEAGUE : return ctx.getResources().getString(R.string.champions_league); //"UEFA Champions League"
@@ -34,7 +34,7 @@ public class Utilies
     {
         if(league_num == CHAMPIONS_LEAGUE)
         {
-            //TODO - put strings into resource file - FIXED
+            //put strings into resource file - FIXED
             if (match_day <= 6)
             {
                 return ctx.getResources().getString(R.string.group_stagematchday_text);
@@ -75,7 +75,7 @@ public class Utilies
         }
         else
         {
-            //TODO - right to left language fixup... - FIXED
+            //right to left language fixup... - FIXED
             if (ctx.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
                 return String.valueOf(awaygoals) + " - " + String.valueOf(home_goals);
             } else {

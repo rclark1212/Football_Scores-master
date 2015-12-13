@@ -49,7 +49,7 @@ public class scoresAdapter extends CursorAdapter
         mHolder.home_name.setText(cursor.getString(cursor.getColumnIndex(DatabaseContract.scores_table.HOME_COL)));
         mHolder.away_name.setText(cursor.getString(cursor.getColumnIndex(DatabaseContract.scores_table.AWAY_COL)));
 
-        //TODO - convert time format string to local (note - don't modify time which is set to venue time) - FIXED
+        //convert time format string to local (note - don't modify time which is set to venue time) - FIXED
         SimpleDateFormat inputFormat = new SimpleDateFormat("HH:mm", java.util.Locale.US);
         Date date = null;
         try {
@@ -93,7 +93,7 @@ public class scoresAdapter extends CursorAdapter
                 public void onClick(View v)
                 {
                     //add Share Action
-                    //TODO - fixup for mirror locales - FIXED
+                    //fixup for mirror locales - FIXED
                     if (context.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
                         context.startActivity(createShareForecastIntent(mHolder.away_name.getText() + " "
                                 + mHolder.score.getText() + " " + mHolder.home_name.getText() + " "));

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.widget.RemoteViews;
+import android.widget.RemoteViewsService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,17 +18,22 @@ import barqsoft.footballscores.FootballScoresWidgetProvider;
 import barqsoft.footballscores.MainActivity;
 import barqsoft.footballscores.R;
 import barqsoft.footballscores.Utilies;
+import barqsoft.footballscores.WidgetListProvider;
 
 /**
  * Created by rclark on 12/11/2015.
+ *  * Adaptation from LAAPTU listview widget example.
+ * https://laaptu.wordpress.com/2013/07/19/android-app-widget-with-listview/
  */
-public class FootballWidgetIntentService extends IntentService {
+public class FootballWidgetIntentService extends RemoteViewsService {
 
-    public FootballWidgetIntentService()
-    {
-        super("FootballWidgetIntentService");
+    @Override
+    public RemoteViewsFactory onGetViewFactory(Intent intent) {
+
+        return (new WidgetListProvider(this.getApplicationContext(), intent));
     }
 
+/*
     @Override
     protected void onHandleIntent(Intent intent)
     {
@@ -93,5 +99,5 @@ public class FootballWidgetIntentService extends IntentService {
         view.setTextViewText(R.id.widget_team2, team_away);
         view.setTextViewText(R.id.widget_score, score);
 
-    }
+    } */
 }

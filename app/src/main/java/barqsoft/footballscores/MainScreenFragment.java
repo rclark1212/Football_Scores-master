@@ -59,6 +59,19 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
                 mAdapter.notifyDataSetChanged();
             }
         });
+        //if there is a selected match ID, scroll to that match ID/position
+        if (MainActivity.selected_match_id > 0)
+        {
+            //okay - a bit hacky but not possible to set initial scroll position of listview in oncreateview
+            if (MainActivity.selected_widget_position > 0) {    //because if 0, already at position
+                score_list.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        score_list.setSelection(MainActivity.selected_widget_position);
+                    }
+                });
+            }
+        }
         return rootView;
     }
 
@@ -99,6 +112,5 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
     {
         mAdapter.swapCursor(null);
     }
-
 
 }

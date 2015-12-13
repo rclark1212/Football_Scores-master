@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/widget"
-    android:background="@color/orange01"
-    android:padding="@dimen/widget_margin">
+    android:orientation="vertical"
+    android:background="@color/orange01" >
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_gravity="start|center_vertical"
-        android:layout_weight="2"
-        android:id="@+id/widget_team1"
-        android:text="team1"/>
+        android:layout_width="match_parent"
+        android:layout_height="20sp"
+        android:gravity="center"
+        android:id="@+id/widget_title"
+        android:textSize="16sp"
+        android:text="@string/title_widget_footballscores" />
+    
+    <ListView
+        android:id="@+id/widget_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_weight="1"
-        android:id="@+id/widget_score"
-        android:text="score"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_gravity="end|center_vertical"
-        android:layout_weight="2"
-        android:id="@+id/widget_team2"
-        android:text="team2"/>
-</FrameLayout>
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/widget_no_data"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+</LinearLayout>

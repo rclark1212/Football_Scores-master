@@ -11,6 +11,7 @@ import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -104,7 +105,7 @@ public class PagerFragment extends Fragment
                 Time time = new Time();
                 time.setToNow();
                 // Otherwise, the format is just the day of the week (e.g "Wednesday".
-                //TODO - add locale to call below - FIXED
+                //add locale to call below - FIXED
                 SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", java.util.Locale.getDefault());
                 return dayFormat.format(dateInMillis);
             }
