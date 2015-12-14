@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -66,7 +67,6 @@ public class WidgetListProvider implements RemoteViewsService.RemoteViewsFactory
         String team_home = "teamH"; //dummy test data
         String team_away = "teamA";
         String score = "0-0";
-        String date = "1/1/11";
         double matchid = -1.0;
 
         Cursor c = mCtx.getContentResolver().query(scores, null, null, selectargs, DatabaseContract.scores_table.DATE_COL);
@@ -74,14 +74,30 @@ public class WidgetListProvider implements RemoteViewsService.RemoteViewsFactory
         if (c.moveToPosition(position)) {
             team_home = c.getString(c.getColumnIndex(DatabaseContract.scores_table.HOME_COL));
             team_away = c.getString(c.getColumnIndex(DatabaseContract.scores_table.AWAY_COL));
-            score = Utilies.getScores(c.getInt(c.getColumnIndex(DatabaseContract.scores_table.HOME_GOALS_COL)), c.getInt(c.getColumnIndex(DatabaseContract.scores_table.AWAY_GOALS_COL)), mCtx);
             matchid = c.getDouble(c.getColumnIndex(DatabaseContract.scores_table.MATCH_ID));
+
+            score = Utilies.getScores(c.getInt(c.getColumnIndex(DatabaseContract.scores_table.HOME_GOALS_COL)), c.getInt(c.getColumnIndex(DatabaseContract.scores_table.AWAY_GOALS_COL)), mCtx);
+            //now for the score item, either put in the score... Or the time (if it has not happened yet)
+            if (score.equals(mCtx.getResources().getString(R.string.no_score))) {
+                SimpleDateFormat inputFormat = new SimpleDateFormat("HH:mm", java.util.Locale.US);
+                Date date = null;
+                try {
+                    date = inputFormat.parse(c.getString(c.getColumnIndex(DatabaseContract.scores_table.TIME_COL)));
+                    SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
+                    score = outputFormat.format(date);
+                } catch (ParseException e) {
+                    //if there was an error in parsing, just put back in original
+                    score = c.getString(c.getColumnIndex(DatabaseContract.scores_table.TIME_COL));
+                }
+            }
         }
 
         c.close();
 
-        remoteView.setTextViewText(R.id.list_item_team1, team_home);
-        remoteView.setTextViewText(R.id.list_item_team2, team_away);
+        //set the team names
+        remoteView.setTextViewText(R.id.list_item_home_team, team_home);
+        remoteView.setTextViewText(R.id.list_item_away_team, team_away);
+        remoteView.setTextViewText(R.id.list_item_score, score);
 
         //finally, set up onClick intent.
         //add match_id so we can open the right match when invoked.

@@ -71,7 +71,8 @@ public class Utilies
     {
         if(home_goals < 0 || awaygoals < 0)
         {
-            return " - ";
+            //return " - ";
+            return ctx.getResources().getString(R.string.no_score);
         }
         else
         {

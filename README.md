@@ -31,6 +31,8 @@ Other issues seen/resolved/changed:
 - fixed some league number mismatches
 - fix to update date/data/position on resume (in case of app being in the backstack)
 - add comment to about box
+- note, did not change colors or UI approach of this app
+
 
 TODO:
 clean up widget - make look pretty and handle RtL, locale

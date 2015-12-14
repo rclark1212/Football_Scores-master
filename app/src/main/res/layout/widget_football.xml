@@ -3,14 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/orange01" >
+    android:background="@color/green13" >
+    <!-- note - native color of app is green - lets stay with theme -->
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="20sp"
+        android:layout_height="@dimen/widget_title_height"
         android:gravity="center"
         android:id="@+id/widget_title"
-        android:textSize="16sp"
+        android:textSize="@dimen/widget_title_size"
+        android:textColor="@android:color/black"
         android:text="@string/title_widget_footballscores" />
     
     <ListView
@@ -24,8 +26,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/widget_no_data"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/widget_empty_size"
         android:visibility="gone" />
 
 </LinearLayout>

@@ -6,6 +6,7 @@
     android:minWidth="@dimen/widget_football_default_width"
     android:minResizeWidth="@dimen/widget_football_default_width"
     android:resizeMode="vertical"
+    android:previewImage="@drawable/widget_preview"
     android:updatePeriodMillis="0">
 </appwidget-provider>
 

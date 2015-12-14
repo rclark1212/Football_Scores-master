@@ -27,6 +27,7 @@
     <string name="awayteam_image">Away team image</string>
     <string name="title_widget_footballscores">Football Scores</string>
     <string name="widget_no_data">No data available</string>
+    <string name="no_score"> - </string>
     <string name="about_text">
         This Application get Football Matches Score for the Premier League,Seria A,Bundesliga,Primera Division
         and the Uefa Champions League.
