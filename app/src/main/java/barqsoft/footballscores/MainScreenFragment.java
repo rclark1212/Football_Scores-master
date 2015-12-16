@@ -1,8 +1,12 @@
 package barqsoft.footballscores;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -12,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import barqsoft.footballscores.service.myFetchService;
 
@@ -23,7 +28,7 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
     public scoresAdapter mAdapter;
     public static final int SCORES_LOADER = 0;
     private String[] fragmentdate = new String[1];
-    private int last_selected_item = -1;
+    private static boolean bAlarmEnabled = false;
 
     public MainScreenFragment()
     {
@@ -33,7 +38,26 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
     {
         Intent service_start = new Intent(getActivity(), myFetchService.class);
         getActivity().startService(service_start);
+
+        //Okay - set up an alarm to call the fetch service to update data.
+        //Now this is not really production worthy. For a production app, would want to set up a push tickle
+        //from GCM to notify when data has changed.
+        //With that said, for homework purposes, simply set up an alarm on a relatively lazy (1 minute cycle).
+        //This will update widget as well as underlying data of the app.
+        //Use an alarm that does not wake up device...
+        if (!bAlarmEnabled) {
+            AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+            Intent i = new Intent(getActivity(), myFootballScoresAlarmBroadcastReceiver.class);
+            i.setAction("FootballScoresAlarm");
+            PendingIntent pi = PendingIntent.getBroadcast(getActivity(), 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+            am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
+                    SystemClock.elapsedRealtime()+myFootballScoresAlarmBroadcastReceiver.DATA_UPDATE_ALARM_PERIOD,
+                    myFootballScoresAlarmBroadcastReceiver.DATA_UPDATE_ALARM_PERIOD, pi);
+            bAlarmEnabled = true;
+        }
+
     }
+
     public void setFragmentDate(String date)
     {
         fragmentdate[0] = date;
@@ -112,5 +136,4 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
     {
         mAdapter.swapCursor(null);
     }
-
 }

@@ -36,6 +36,7 @@
         android:layout_height="match_parent"
         android:layout_weight="5"
         android:layout_gravity="start"
+        android:textAlignment="viewStart"
         android:textSize="@dimen/widget_text_size"
         android:textColor="@android:color/darker_gray"
         />

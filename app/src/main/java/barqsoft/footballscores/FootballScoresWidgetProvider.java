@@ -7,6 +7,8 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
@@ -16,6 +18,8 @@ import barqsoft.footballscores.service.FootballWidgetIntentService;
  * Created by rclark on 12/10/2015.
  *
  * Container widget which will show all matches from today...
+ * Adaptation from LAAPTU listview widget example.
+ * https://laaptu.wordpress.com/2013/07/19/android-app-widget-with-listview/
  *
  */
 public class FootballScoresWidgetProvider extends AppWidgetProvider {
@@ -39,6 +43,7 @@ public class FootballScoresWidgetProvider extends AppWidgetProvider {
                     addNextIntentWithParentStack(clickIntentTemplate).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
             remoteViews.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
 
+            //and update...
             appWidgetManager.updateAppWidget(appWidgetIds[i], remoteViews);
         }
         super.onUpdate(ctx, appWidgetManager, appWidgetIds);
@@ -52,7 +57,12 @@ public class FootballScoresWidgetProvider extends AppWidgetProvider {
         ComponentName cn = new ComponentName(ctx, FootballScoresWidgetProvider.class);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(cn);
 
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.layout.widget_football);
+        //This will call into the remoteviews factory - will update the widget view
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list);
+
+        //lets make a sound to test...
+        //ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+        //toneG.startTone(ToneGenerator.TONE_DTMF_0, 200);
 
         super.onReceive(ctx, intent);
     }

@@ -1,6 +1,11 @@
 package barqsoft.footballscores;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 
 /**
@@ -108,4 +113,19 @@ public class Utilies
             default: return R.drawable.no_icon;
         }
     }
+
+    //
+    //  Utility routine to check if we have internet connection. Check on start
+    //
+    public static boolean isOnline(Context ctx) {
+        ConnectivityManager cm =
+                (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo == null)
+            return false;
+
+        return netInfo.isConnected();
+    }
+
 }

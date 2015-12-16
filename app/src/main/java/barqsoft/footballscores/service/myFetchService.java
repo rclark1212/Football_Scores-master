@@ -18,12 +18,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.Vector;
 
 import barqsoft.footballscores.DatabaseContract;
 import barqsoft.footballscores.R;
+import barqsoft.footballscores.Utilies;
 
 /**
  * Created by yehya khaled on 3/2/2015.
@@ -35,6 +37,7 @@ public class myFetchService extends IntentService
 {
     public static final String LOG_TAG = "myFetchService";
     public static final String FOOTBALL_DATA_UPDATED = "barqsoft.footballscores.ACTION_DATA_UPDATED";
+    public static long lastUpdateTime;
 
     public myFetchService()
     {
@@ -44,10 +47,25 @@ public class myFetchService extends IntentService
     @Override
     protected void onHandleIntent(Intent intent)
     {
+        //lets check if day changed first...
+        if (lastUpdateTime != 0) {
+            Calendar c = Calendar.getInstance();
+            int today = c.get(Calendar.DAY_OF_YEAR);
+            c.setTimeInMillis(lastUpdateTime);
+            if (c.get(Calendar.DAY_OF_YEAR) != today) {
+                //urp - time changed! send update intent
+                //after we process JSON data, lets send out a broadcast so we can update our widget...
+                Intent dataUpdatedIntent = new Intent(FOOTBALL_DATA_UPDATED);
+                getApplicationContext().sendBroadcast(dataUpdatedIntent);
+            }
+        }
+        lastUpdateTime = System.currentTimeMillis();
+
+        if (!Utilies.isOnline(getApplicationContext())) return;
+
         getData("n2");
         getData("p2");
 
-        return;
     }
 
     private void getData (String timeFrame)

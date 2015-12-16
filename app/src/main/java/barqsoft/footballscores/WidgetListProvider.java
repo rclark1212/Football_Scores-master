@@ -4,6 +4,8 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -41,9 +43,11 @@ public class WidgetListProvider implements RemoteViewsService.RemoteViewsFactory
 
         Cursor c = mCtx.getContentResolver().query(scores, null, null, selectargs, DatabaseContract.scores_table.DATE_COL);
 
-        count = c.getCount();
+        if (c != null) {
+            count = c.getCount();
 
-        c.close();
+            c.close();
+        }
 
         return count;
     }
@@ -71,7 +75,7 @@ public class WidgetListProvider implements RemoteViewsService.RemoteViewsFactory
 
         Cursor c = mCtx.getContentResolver().query(scores, null, null, selectargs, DatabaseContract.scores_table.DATE_COL);
 
-        if (c.moveToPosition(position)) {
+        if ((c != null) && (c.moveToPosition(position))) {
             team_home = c.getString(c.getColumnIndex(DatabaseContract.scores_table.HOME_COL));
             team_away = c.getString(c.getColumnIndex(DatabaseContract.scores_table.AWAY_COL));
             matchid = c.getDouble(c.getColumnIndex(DatabaseContract.scores_table.MATCH_ID));
@@ -129,8 +133,13 @@ public class WidgetListProvider implements RemoteViewsService.RemoteViewsFactory
     public void onCreate() {
     }
 
+
     @Override
     public void onDataSetChanged() {
+        //called when we invalidate view...
+        //lets make a sound to test to make sure updates getting through...
+        //ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+        //toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
     }
 
     @Override
@@ -138,7 +147,7 @@ public class WidgetListProvider implements RemoteViewsService.RemoteViewsFactory
     }
 
     private String getTodayDateArg() {
-        //create a cursor. For now, just put in a date of today
+        //create a cursor. This routine determines what date we show in widget. Will be today's matches
         //sort by date
         Date date = new Date(System.currentTimeMillis());       //today
         SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");

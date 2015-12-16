@@ -5,6 +5,7 @@
     <uses-permission
         android:name="android.permission.INTERNET"
         android:maxSdkVersion="22" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -47,6 +48,8 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info_footballscores" />
         </receiver>
+
+        <receiver android:name=".myFootballScoresAlarmBroadcastReceiver" />
 
     </application>
 
