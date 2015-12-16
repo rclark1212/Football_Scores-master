@@ -35,16 +35,12 @@ Other issues seen/resolved/changed:
 - fixed no internet operation
 - note, did not change colors or UI approach of this app
 - add data change event on day changing
-- added polling service to update widget (yes - not the most power efficient).
+- added polling service to update backing data (yes - not the most power efficient) and update date changes on widget.
 
 - there is a hole here. If user keeps tablet alive and date switches while app is in foreground, main screen won't update. But I think
 this is okay. Weird to have the screen in front of you refresh with no action. To make this app truly production worthy, have a refresh
 method on pulling down main screen. In addition, have a tickle for the widget for power reasons.
 
-TODO:
-date transitions not updating data (need to set an alarm to run sync service ever xxx. Use this also to check for a date change)
-Set up sync service on an alarm. 15 minutes...
-Final lint pass
 
 ## History
 
